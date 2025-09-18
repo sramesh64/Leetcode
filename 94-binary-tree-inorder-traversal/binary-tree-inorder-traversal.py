@@ -11,17 +11,17 @@ class Solution(object):
         :rtype: List[int]
         """
         ans = []
+        stack = []
 
-        def dfs(node):
-            if(not node):
-                return
-            if(node.left):
-                dfs(node.left)
+        cur = root
+
+        while (cur or stack):
+            while(cur):
+                stack.append(cur)
+                cur = cur.left
+            node = stack.pop()
             ans.append(node.val)
-            if(node.right):
-                dfs(node.right)
-            return
-        dfs(root)
+            cur = node.right
 
         return ans
 
