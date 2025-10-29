@@ -13,13 +13,13 @@ class Solution:
             path.append(str(node.val))
             if(node.left is None and node.right is None):
                 res.append("->".join(path))
-
+                
             if(node.left):
                 dfs(node.left)
             if(node.right):
                 dfs(node.right)
             path.pop()
 
-            
+
         dfs(root)
         return res
