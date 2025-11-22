@@ -4,23 +4,20 @@ class Solution(object):
         :type matrix: List[List[str]]
         :rtype: int
         """
-        m = len(matrix)
-        n = len(matrix[0]) if m > 0 else 0
-        dp = [[0] * n for _ in range(m)]
+        rows = len(matrix)
+        cols = len(matrix[0])
+
+        dp = [[0 for _ in range(cols)] for _ in range(rows)]
         biggest_square = 0
-        for i in range (0, m):
-            for j in range (0, n):
 
-                if (matrix[i][j] == "1"):
-                    if i == 0 or j == 0:
-                        dp[i][j] = 1
-                    else:
-                        min_squares = min(dp[i-1][j], dp[i-1][j-1], dp[i][j-1])
-                        dp[i][j] = 1 + min_squares
+        for r in range (rows):
+            for c in range (cols):
+                if(matrix[r][c] == "0"):
+                    dp[r][c] = 0
+                else:
 
-                    if (dp[i][j] > biggest_square):
-                        biggest_square = dp[i][j]
-        return biggest_square*biggest_square
+                    dp[r][c] = 1 + min(dp[r-1][c], dp[r-1][c-1], dp[r][c-1])
+                    
+                biggest_square = max(biggest_square, dp[r][c]*dp[r][c])
 
-
-    
+        return biggest_square
